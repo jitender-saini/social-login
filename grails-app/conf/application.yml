@@ -108,7 +108,7 @@ environments:
     development:
         dataSource:
             dbCreate: create-drop
-            url: jdbc:mysql://localhost:3306/socialLogin
+            url: jdbc:mysql://qa2.intelligrape.net:3306/myc-jit
     test:
         dataSource:
             dbCreate: update
