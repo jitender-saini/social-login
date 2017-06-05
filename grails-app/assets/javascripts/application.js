@@ -49,12 +49,16 @@ function signOut() {
     auth2.signOut().then(function () {
         appSignOut();
         console.log('User signed out.');
+//fb logout
+        FB.logout(function(response) {
+            // Person is now logged out
+        });
     });
 }
 
 function appSignOut() {
     jQuery.ajax({
-        url: '/login/logout',
+        url: '/logout',
         success: function () {
             $("#msg").html("Sign out success");
             window.location = "/login/index";
@@ -143,7 +147,6 @@ function testAPI() {
         });
     });
 }
-
 // FB.api('/me', function(response) {
 //     alert("Name: "+ response.name + "\nFirst name: "+ response.first_name + "ID: "+response.id);
 //     var img_link = "http://graph.facebook.com/"+response.id+"/picture"
