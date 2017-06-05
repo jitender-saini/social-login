@@ -101,8 +101,8 @@ dataSource:
     jmxExport: true
     driverClassName: com.mysql.jdbc.Driver
     dialect : org.hibernate.dialect.MySQL5InnoDBDialect
-    username: root
-    password: igdefault
+    username: myc-jit
+    password: K4tSSZ36v9HM68ne
 
 environments:
     development:
@@ -116,7 +116,7 @@ environments:
     production:
         dataSource:
             dbCreate: create-drop
-            url: 
+            url: jdbc:mysql://qa2.intelligrape.net:3306/myc-jit
 #            url: jdbc:mysql://localhost:3306/socialLogin
             properties:
                 jmxEnabled: true
