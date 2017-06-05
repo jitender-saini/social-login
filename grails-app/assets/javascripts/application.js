@@ -46,14 +46,18 @@ function onSignIn(googleUser) {
 
 function signOut() {
     var auth2 = gapi.auth2.getAuthInstance();
-    auth2.signOut().then(function () {
-        appSignOut();
-        console.log('User signed out.');
-//fb logout
-        FB.logout(function(response) {
-            // Person is now logged out
+    if (auth2) {
+        auth2.signOut().then(function () {
+            appSignOut();
+            console.log('google signed out.');
         });
-    });
+    }
+    else {
+        //fb logout
+        FB.logout(function (response) {
+            console.log('facebook signed out.');
+        });
+    }
 }
 
 function appSignOut() {
@@ -79,22 +83,25 @@ function onLoad() {
 // Facebook login
 
 
-window.fbAsyncInit = function() {
+window.fbAsyncInit = function () {
     FB.init({
-        appId      : '1375407885885060',
-        cookie     : true,
-        xfbml      : true,
-        version    : 'v2.8'
+        appId: '1375407885885060',
+        cookie: true,
+        xfbml: true,
+        version: 'v2.8'
     });
     FB.AppEvents.logPageView();
 };
 
 
 // Load the SDK asynchronously
-(function(d, s, id){
+(function (d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) {return;}
-    js = d.createElement(s); js.id = id;
+    if (d.getElementById(id)) {
+        return;
+    }
+    js = d.createElement(s);
+    js.id = id;
     js.src = "//connect.facebook.net/en_US/sdk.js";
     fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
@@ -106,9 +113,8 @@ window.fbAsyncInit = function() {
 // });
 
 
-
 function checkLoginState() {
-    FB.getLoginStatus(function(response) {
+    FB.getLoginStatus(function (response) {
         statusChangeCallback(response);
     });
 }
@@ -125,7 +131,7 @@ function statusChangeCallback(response) {
         var userCO = {
             name: response.name,
             email: response.id,
-            photoUrl: "http://graph.facebook.com/"+response.id+"/picture"
+            photoUrl: "http://graph.facebook.com/" + response.id + "/picture"
         };
 
         $.ajax({
@@ -143,7 +149,6 @@ function statusChangeCallback(response) {
         });
 
 
-
         testAPI();
     } else {
         // The person is not logged into your app or we are unable to tell.
@@ -154,17 +159,17 @@ function statusChangeCallback(response) {
 
 function testAPI() {
     console.log('Welcome!  Fetching your information.... ');
-    FB.api('/me', function(response) {
+    FB.api('/me', function (response) {
         console.log('Successful login for: ' + response.name);
         console.log(response);
         // document.getElementById('status').innerHTML =
         //     'Thanks for logging in, ' + response.name + '!';
-        FB.api('/me', function(response) {
-            alert("Name: "+ response.name + "\nFirst name: "+ response.first_name + "email: "+response.email);
-            var img_link = "http://graph.facebook.com/"+response.id+"/picture";
+        FB.api('/me', function (response) {
+            alert("Name: " + response.name + "\nFirst name: " + response.first_name + "email: " + response.email);
+            var img_link = "http://graph.facebook.com/" + response.id + "/picture";
             console.log(img_link);
         });
-        FB.api('/me', function(response) {
+        FB.api('/me', function (response) {
             console.log(JSON.stringify(response));
         });
     });
