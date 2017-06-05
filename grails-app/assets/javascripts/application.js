@@ -100,10 +100,10 @@ window.fbAsyncInit = function() {
 }(document, 'script', 'facebook-jssdk'));
 
 
-FB.getLoginStatus(function(response) {
-    statusChangeCallback(response);
-    console.log(response);
-});
+// FB.getLoginStatus(function(response) {
+//     statusChangeCallback(response);
+//     console.log(response);
+// });
 
 
 
@@ -122,6 +122,28 @@ function statusChangeCallback(response) {
     // for FB.getLoginStatus().
     if (response.status === 'connected') {
         // Logged into your app and Facebook.
+        var userCO = {
+            name: response.name,
+            email: response.id,
+            photoUrl: "http://graph.facebook.com/"+response.id+"/picture"
+        };
+
+        $.ajax({
+            url: '/login/googleLogin',
+            type: 'POST',
+            data: userCO,
+            success: function () {
+                window.location = "/user/index";
+            },
+            error: function () {
+                $("#msg").html("Error in response");
+                $("#msg").addClass("alert alert-danger");
+
+            }
+        });
+
+
+
         testAPI();
     } else {
         // The person is not logged into your app or we are unable to tell.
@@ -138,8 +160,8 @@ function testAPI() {
         // document.getElementById('status').innerHTML =
         //     'Thanks for logging in, ' + response.name + '!';
         FB.api('/me', function(response) {
-            alert("Name: "+ response.name + "\nFirst name: "+ response.first_name + "ID: "+response.id);
-            var img_link = "http://graph.facebook.com/"+response.id+"/picture"
+            alert("Name: "+ response.name + "\nFirst name: "+ response.first_name + "email: "+response.email);
+            var img_link = "http://graph.facebook.com/"+response.id+"/picture";
             console.log(img_link);
         });
         FB.api('/me', function(response) {
@@ -147,7 +169,3 @@ function testAPI() {
         });
     });
 }
-// FB.api('/me', function(response) {
-//     alert("Name: "+ response.name + "\nFirst name: "+ response.first_name + "ID: "+response.id);
-//     var img_link = "http://graph.facebook.com/"+response.id+"/picture"
-// });
