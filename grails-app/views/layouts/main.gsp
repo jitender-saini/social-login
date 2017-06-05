@@ -13,6 +13,7 @@
           content="7541036959-6661hcep3tr20o2h9an2k39am7c6bo20.apps.googleusercontent.com">
     <asset:stylesheet src="application.css"/>
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="${createLinkTo(dir: 'images', file: 'favicon.ico')}" type="image/x-icon"/>
     <g:layoutHead/>
 </head>
 
