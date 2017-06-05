@@ -15,7 +15,6 @@
             <div class="panel-heading custom-heading">
                 <div class="row-fluid user-row">
                     Login
-                    <li><a href="#" onclick="signOut();">Sign out</a></li>
                 </div>
             </div>
 
