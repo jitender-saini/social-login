@@ -9,7 +9,7 @@ class BootStrap {
 
     def init = { servletContext ->
         log.info("Application Running")
-        createAdminUser()
+//        createAdminUser()
     }
 
     def createAdminUser(){

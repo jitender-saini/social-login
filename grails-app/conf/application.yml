@@ -116,7 +116,8 @@ environments:
     production:
         dataSource:
             dbCreate: create-drop
-            url: jdbc:mysql://localhost:3306/socialLogin
+            url: 
+#            url: jdbc:mysql://localhost:3306/socialLogin
             properties:
                 jmxEnabled: true
                 initialSize: 5
