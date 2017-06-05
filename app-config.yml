@@ -1,0 +1,15 @@
+baseURL: "localhost:8080"
+
+oauth:
+  providers:
+    google:
+      api: org.scribe.builder.api.GoogleApi20
+      key: 'oauth_google_key'
+      secret: 'oauth_google_secret'
+      successUri: '/oauth/google/success'
+      failureUri: '/oauth/google/error'
+      callback: "${baseURL}/oauth/google/callback"
+
+resource:
+  document:
+    folderPath: "/var/social-login/images/"
