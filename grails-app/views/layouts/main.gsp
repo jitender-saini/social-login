@@ -42,11 +42,8 @@
 
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       %{--aria-expanded="false">${session.user.name} <span class="caret"></span></a>--}%
+                %{--aria-expanded="false">${session.user.name} <span class="caret"></span></a>--}%
                     <ul class="dropdown-menu">
-                        <li>
-                            <a href='${createLink(controller: 'user', action: 'editProfile')}'>Edit Profile</a>
-                        </li>
                         <sec:ifAnyGranted roles="${UserRoles.ROLE_ADMIN}">
                             <li>
                                 <a href='${createLink(controller: 'user', action: 'usersList')}'>Users List</a>

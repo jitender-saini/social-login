@@ -44,11 +44,10 @@ function onSignIn(googleUser) {
     })
 }
 
-function signOut() {
+function appSignOut() {
     var auth2 = gapi.auth2.getAuthInstance();
     if (auth2) {
         auth2.signOut().then(function () {
-            appSignOut();
             console.log('google signed out.');
         });
     }
@@ -60,12 +59,13 @@ function signOut() {
     }
 }
 
-function appSignOut() {
+function signOut() {
     jQuery.ajax({
         url: '/logout',
         success: function () {
             $("#msg").html("Sign out success");
             window.location = "/login/index";
+            appSignOut();
         },
         error: function () {
             $("#msg").html("Error in response");
@@ -128,11 +128,15 @@ function statusChangeCallback(response) {
     // for FB.getLoginStatus().
     if (response.status === 'connected') {
         // Logged into your app and Facebook.
-        var userCO = {
-            name: response.name,
-            email: response.id,
-            photoUrl: "http://graph.facebook.com/" + response.id + "/picture"
-        };
+        FB.api('/me', function (response) {
+            console.log(JSON.stringify(response));
+            console.log(response);
+            var userCO = {
+                name: response.name,
+                email: response.id,
+                photoUrl: "http://graph.facebook.com/" + response.id + "/picture"
+            };
+        });
 
         $.ajax({
             url: '/login/googleLogin',
@@ -149,7 +153,7 @@ function statusChangeCallback(response) {
         });
 
 
-        testAPI();
+        // testAPI();
     } else {
         // The person is not logged into your app or we are unable to tell.
         document.getElementById('status').innerHTML = 'Please log ' +
@@ -162,15 +166,16 @@ function testAPI() {
     FB.api('/me', function (response) {
         console.log('Successful login for: ' + response.name);
         console.log(response);
-        // document.getElementById('status').innerHTML =
-        //     'Thanks for logging in, ' + response.name + '!';
-        FB.api('/me', function (response) {
-            alert("Name: " + response.name + "\nFirst name: " + response.first_name + "email: " + response.email);
-            var img_link = "http://graph.facebook.com/" + response.id + "/picture";
-            console.log(img_link);
-        });
-        FB.api('/me', function (response) {
-            console.log(JSON.stringify(response));
-        });
+    });
+    
+    // document.getElementById('status').innerHTML =
+    //     'Thanks for logging in, ' + response.name + '!';
+    FB.api('/me', function (response) {
+        alert("Name: " + response.name + "\nFirst name: " + response.first_name + "email: " + response.email);
+        var img_link = "http://graph.facebook.com/" + response.id + "/picture";
+        console.log(img_link);
+    });
+    FB.api('/me', function (response) {
+        console.log(JSON.stringify(response));
     });
 }

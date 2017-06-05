@@ -86,6 +86,9 @@ class LoginController extends grails.plugin.springsecurity.LoginController{
             springSecurityService.reauthenticate(user.username)
 //            session.user = user
         } else {
+            println userCO.name
+            println userCO.photoUrl
+            println userCO.username
             def username =userService.register(userCO)
             def test = User.findByUsername(username)
             println "<<<<<<<<<<test" + test
