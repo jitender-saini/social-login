@@ -10,7 +10,7 @@ class UserService {
     def updateUser(User userObj, UpdateProfileCO profileCO) {
         userObj.photoUrl = profileCO.photoUrl
         if (userObj.validate()) {
-            userObj.merge(flush: true)
+            userObj.merge(failonError: true)
             return !userObj.hasErrors()
         }
     }
@@ -32,12 +32,14 @@ class UserService {
         }
 
         if (user.validate()) {
-            user.save(flush: true, failonError: true)
+            user.save(failonError: true)
+            println "service+++++++++++++++++++++++++++"
+            println user.username + "username *************************"
         } else {
-                println "Errrors<<<<<<<<<<<<<<"
-                 user.errors.each{
-                    println it
-                }
+            println "Errrors<<<<<<<<<<<<<<"
+            user.errors.each {
+                println it
+            }
         }
 
         return user.username

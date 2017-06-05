@@ -133,24 +133,28 @@ function statusChangeCallback(response) {
             console.log(response);
             var userCO = {
                 name: response.name,
-                email: response.id,
+                username: response.id,
                 photoUrl: "http://graph.facebook.com/" + response.id + "/picture"
             };
+
+            $.ajax({
+                url: '/login/googleLogin',
+                type: 'POST',
+                data: userCO,
+                success: function () {
+                    window.location = "/user/index";
+                },
+                error: function () {
+                    $("#msg").html("Error in response");
+                    $("#msg").addClass("alert alert-danger");
+
+                }
+            });
+
+
         });
 
-        $.ajax({
-            url: '/login/googleLogin',
-            type: 'POST',
-            data: userCO,
-            success: function () {
-                window.location = "/user/index";
-            },
-            error: function () {
-                $("#msg").html("Error in response");
-                $("#msg").addClass("alert alert-danger");
 
-            }
-        });
 
 
         // testAPI();
@@ -167,7 +171,7 @@ function testAPI() {
         console.log('Successful login for: ' + response.name);
         console.log(response);
     });
-    
+
     // document.getElementById('status').innerHTML =
     //     'Thanks for logging in, ' + response.name + '!';
     FB.api('/me', function (response) {
