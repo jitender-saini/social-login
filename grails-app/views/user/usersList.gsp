@@ -23,9 +23,9 @@
                             <ul class="dropdown-menu">
                                 <li><g:link controller="user" action="usersList">All Users</g:link></li>
                                 <li><g:link controller="user" action="usersList"
-                                            params="[isActive: true]">Active Users</g:link></li>
+                                            params="[enabled: true]">Active Users</g:link></li>
                                 <li><g:link controller="user" action="usersList"
-                                            params="[isActive: false]">InActive Users</g:link></li>
+                                            params="[enabled: false]">InActive Users</g:link></li>
                             </ul>
                         </div>
                     </div>
@@ -50,16 +50,15 @@
                     <thead>
                     <tr>
                         <g:sortableColumn property="id" title="Id"/>
-                        <g:sortableColumn property="userName" title="UserName"/>
+                        <g:sortableColumn property="username" title="Username"/>
                         <g:sortableColumn property="email" title="Email"/>
-                        <g:sortableColumn property="name" title="LastName"/>
-                        <g:sortableColumn property="isActive" title="Active"/>
-                        <g:sortableColumn property="isActive" title="Manage"/>
+                        <g:sortableColumn property="enabled" title="Active"/>
+                        <g:sortableColumn property="enabled" title="Manage"/>
                     </tr>
                     </thead>
                     <tbody>
                     <g:each var="user" in="${users}">
-                        <g:if test="${user.isActive}">
+                        <g:if test="${user.enabled}">
                             <tr style="background-color:#3ece45">
                         </g:if>
                         <g:else>
@@ -69,14 +68,14 @@
                         <td>
                             <a href='${createLink(controller: 'user', action: 'profile', params: [userId: user.id])}'
                                style="color: black">
-                                ${user.userName}
+                                ${user.username}
                             </a>
                         </td>
                         <td>${user.email}</td>
                         <td>${user.name}</td>
-                        <td>${user.isActive}</td>
+                        <td>${user.enabled}</td>
                         <td>
-                            <g:if test="${user.isActive}">
+                            <g:if test="${user.enabled}">
                                 <g:link controller="user" action="toggleActive"
                                         params="[userId: user.id]">Deactivate</g:link>
                             </g:if>

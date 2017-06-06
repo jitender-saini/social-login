@@ -28,10 +28,10 @@ class UserController {
     @Secured(['ROLE_ADMIN'])
     def toggleActive(Long userId) {
         User user = User.get(userId)
-        if (user.isActive) {
-            User.executeUpdate("update User set isActive=:active where id=:id", [active: false, id: userId])
+        if (user.enabled) {
+            User.executeUpdate("update User set enabled=:active where id=:id", [active: false, id: userId])
         } else {
-            User.executeUpdate("update User set isActive=:active where id=:id", [active: true, id: userId])
+            User.executeUpdate("update User set enabled=:active where id=:id", [active: true, id: userId])
         }
         redirect(action: 'usersList')
     }

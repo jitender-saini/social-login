@@ -1,11 +1,12 @@
 package com.login
 
+import com.login.co.UserSearchCO
 import grails.plugin.springsecurity.SpringSecurityService
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 import grails.compiler.GrailsCompileStatic
 
-@GrailsCompileStatic
+//@GrailsCompileStatic
 @EqualsAndHashCode(includes='username')
 @ToString(includes='username', includeNames=true, includePackage=false)
 class User implements Serializable {
@@ -61,5 +62,28 @@ class User implements Serializable {
 
 	static mapping = {
 		password column: '`password`'
+	}
+
+	static namedQueries = {
+		search { UserSearchCO co ->
+			co.q = co.q ?: ''
+			or {
+				ilike('name', "%${co.q}%")
+				ilike('username', "%${co.q}%")
+				ilike('email', "%${co.q}%")
+			}
+			if (co.sort) {
+				order(co.sort, co.order)
+			}
+			if (co.enabled != null) {
+				if (co.enabled) {
+					eq('enabled', true)
+				} else {
+					eq('enabled', false)
+				}
+			}
+			maxResults(co.max)
+			firstResult(co.offset)
+		}
 	}
 }
