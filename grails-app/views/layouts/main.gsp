@@ -36,25 +36,24 @@
         </div>
 
         <div class="navbar-collapse collapse" aria-expanded="false" style="height: 0.8px;">
-        <ul class="nav navbar-nav navbar-right">
-            <g:pageProperty name="page.nav"/>
-            <sec:ifLoggedIn>
-
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                %{--aria-expanded="false">${session.user.name} <span class="caret"></span></a>--}%
-                    <ul class="dropdown-menu">
-                        <sec:ifAnyGranted roles="${UserRoles.ROLE_ADMIN}">
-                            <li>
-                                <a href='${createLink(controller: 'user', action: 'usersList')}'>Users List</a>
-                            </li>
-                        </sec:ifAnyGranted>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#" onclick="signOut();">Sign out</a></li>
-                    </ul>
-                </li>
-                </ul>
-            </sec:ifLoggedIn>
+            <ul class="nav navbar-nav navbar-right">
+                <g:pageProperty name="page.nav"/>
+                <sec:ifLoggedIn>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">${sec.loggedInUserInfo(field: 'username')} <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <sec:ifAnyGranted roles="${UserRoles.ROLE_ADMIN}">
+                                <li>
+                                    <a href='${createLink(controller: 'user', action: 'usersList')}'>Users List</a>
+                                </li>
+                            </sec:ifAnyGranted>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#" onclick="signOut();">Sign out</a></li>
+                        </ul>
+                    </li>
+                </sec:ifLoggedIn>
+            </ul>
 
         </div>
     </div>

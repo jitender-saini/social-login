@@ -6,7 +6,7 @@ import grails.plugin.springsecurity.SpringSecurityUtils
 import org.springframework.security.access.annotation.Secured
 
 @Secured('permitAll')
-class LoginController extends grails.plugin.springsecurity.LoginController{
+class LoginController extends grails.plugin.springsecurity.LoginController {
 
 
     UserService userService
@@ -19,7 +19,7 @@ class LoginController extends grails.plugin.springsecurity.LoginController{
             redirect uri: SpringSecurityUtils.securityConfig.successHandler.defaultTargetUrl
         } else {
             log.info("Hello2 ")
-            render view:'index'
+            render view: 'index'
         }
 
 //        User user = session.user
@@ -31,48 +31,22 @@ class LoginController extends grails.plugin.springsecurity.LoginController{
 //        }
     }
 
-
     /** Show the login page. */
     def auth() {
-
         def conf = getConf()
-
         if (springSecurityService.isLoggedIn()) {
             redirect uri: conf.successHandler.defaultTargetUrl
             return
         }
 
         String postUrl = request.contextPath + conf.apf.filterProcessesUrl
-        render view: 'auth', model: [postUrl: postUrl,
+        render view: 'auth', model: [postUrl            : postUrl,
                                      rememberMeParameter: conf.rememberMe.parameter,
-                                     usernameParameter: conf.apf.usernameParameter,
-                                     passwordParameter: conf.apf.passwordParameter,
-                                     gspLayout: conf.gsp.layoutAuth]
+                                     usernameParameter  : conf.apf.usernameParameter,
+                                     passwordParameter  : conf.apf.passwordParameter,
+                                     gspLayout          : conf.gsp.layoutAuth]
     }
 
-    def loginHandler(String userName, String password) {
-        User user = User.createCriteria().get {
-            projections {
-                or {
-                    eq('username', userName)
-                    eq('email', userName)
-                }
-                eq('password', password)
-            }
-        } as User
-        if (user) {
-            if (user.enabled) {
-                session.user = user
-                redirect(controller: "user", action: "index")
-            } else {
-                flash.error = "Your account is not active"
-                redirect(controller: "login", action: "index")
-            }
-        } else {
-            flash.error = "User not found"
-            redirect(controller: "login", action: "index")
-        }
-    }
 
     def logout() {
         session.invalidate()
@@ -89,7 +63,7 @@ class LoginController extends grails.plugin.springsecurity.LoginController{
             println userCO.name
             println userCO.photoUrl
             println userCO.username
-            def username =userService.register(userCO)
+            def username = userService.register(userCO)
             def test = User.findByUsername(username)
             println "<<<<<<<<<<test" + test
             springSecurityService.reauthenticate(username)

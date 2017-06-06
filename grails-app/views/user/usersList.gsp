@@ -1,10 +1,11 @@
-<head>
+<head xmlns:color="http://www.w3.org/1999/xhtml" xmlns:color="http://www.w3.org/1999/xhtml"
+      xmlns:color="http://www.w3.org/1999/xhtml" xmlns:color="http://www.w3.org/1999/xhtml">
     <meta name="layout" content="main"/>
 </head>
 
 
 <body>
-<div class="container-fluid">
+<div class="container-fluid well">
     <div class="my-panel">
         <div class="panel panel-default">
             <div class="panel-heading custom-heading">
@@ -52,6 +53,7 @@
                         <g:sortableColumn property="id" title="Id"/>
                         <g:sortableColumn property="username" title="Username"/>
                         <g:sortableColumn property="email" title="Email"/>
+                        <g:sortableColumn property="name" title="Name"/>
                         <g:sortableColumn property="enabled" title="Active"/>
                         <g:sortableColumn property="enabled" title="Manage"/>
                     </tr>
@@ -62,7 +64,7 @@
                             <tr style="background-color:#3ece45">
                         </g:if>
                         <g:else>
-                            <tr style="background-color: #FF3C3C">
+                            <tr style="background-color: #eee">
                         </g:else>
                         <td>${user.id}</td>
                         <td>
